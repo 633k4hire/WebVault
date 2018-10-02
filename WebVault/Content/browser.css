@@ -5,17 +5,33 @@
 }
 
 #toolbar {
-    height: 50px;
+    height: auto;
     width: 100%;
     background-color: #333333;
+    z-index:50000;
 }
 
-#footer {
-    height: 25px;
+#footer {    
+    min-height:20px;
+    height: auto;
     width: 100%;
     background-color: #333333;
     z-index: 10001;
 }
+    body
+
+{
+    padding-top: 49px;
+}
+.sm-btn{
+    width:15px;
+    height:15px;
+    border-radius:2px;
+}
+    .sm-btn:hover {
+        cursor:pointer;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.72);
+    }
 
 #browserbox {
     display: table;
@@ -60,7 +76,7 @@
     float: left;
     overflow: hidden;
     height: 100%;
-    background-color:white;
+    background-color: white;
 }
 
 .resizable {
@@ -74,12 +90,12 @@
 }
 
 .resizable1 {
-    min-width:80px;
-   max-width:80%;
+    min-width: 0px;
+    max-width: 80%;
 }
 
 .resizable2 {
-   min-width:20%;
+    min-width: 20%;
 }
 
 .resizable .inner {
@@ -88,7 +104,7 @@
     overflow-y: auto;
     position: absolute;
     height: 100%;
-    width:100%;
+    width: 100%;
     top: 0;
     left: 0;
     -webkit-box-sizing: border-box;
@@ -98,14 +114,20 @@
 
 .resizable1 .inner {
     margin-right: 7px;
+    border-bottom: 3px solid rgba(0, 175, 240,1);
+    border-top: 1px solid rgba(0, 175, 240,1);
+
 }
 
 .resizable2 .inner {
-    padding-top:10px;
-    padding-left:17px;
-    padding-bottom:10px;
+    border-bottom: 3px solid rgba(0, 175, 240,1);
+    border-top: 1px solid rgba(0, 175, 240,1);
+    padding-top: 10px;
+    padding-left: 17px;
+    padding-bottom: 10px;
     margin-left: 0px;
-    padding-right:20px;
+    padding-right: 20px;
+
 }
 
 .ui-resizable-e {
@@ -115,7 +137,10 @@
     right: -7px;
     top: 0;
     bottom: 0;
-    background: #333;
+    background: rgba(0, 175, 240,1);
+    -moz-box-shadow: rgba(0, 175, 240, 0.70) 0px 0px 15px;
+    -webkit-box-shadow: rgba(0, 175, 240, 0.70) 0px 0px 15px;
+    box-shadow: rgba(0, 175, 240, 0.70) 0px 0px 15px;
 }
 
 /*File Side*/
@@ -124,7 +149,10 @@
 
 /*Icon*/
 .file {
+    position: relative;
     display: inline-block;
+    top: 0px;
+    vertical-align: top;
     padding: 0px;
     margin: 5px;
     width: 100px;
@@ -132,12 +160,14 @@
     max-height: 175px;
     text-align: center;
 }
+
     .file a {
-        font-family:Calibri;
+        font-family: Calibri;
         text-decoration: none;
         color: black;
         text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.72);
     }
+
     .file:hover {
         cursor: pointer;
         background-color: rgba(0, 175, 240, 0.40);
@@ -161,3 +191,128 @@
         max-width: 100px;
     }
 
+    .file .i-download {
+        text-decoration: none;
+        padding-top: 1px;
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        color: white !important;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.72);
+
+        background-color: lime;
+
+        top: 27px;
+        left: 55px;
+        border-radius: 10px;
+        z-index: 1;
+    }
+
+        .file .i-download a {
+            font-family: Calibri;
+            text-decoration: none;
+            color: white;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.72);
+        }
+
+        .file .i-download:hover {
+            -moz-box-shadow: rgba(0, 255, 0, 0.74) 0px 0px 15px;
+            -webkit-box-shadow: rgba(0, 255, 0, 0.74) 0px 0px 15px;
+            box-shadow: rgba(0, 255, 0, 0.74) 0px 0px 15px;
+            
+        }
+        .file .i-check{
+            top:0px;
+            left:0px;
+            position:absolute;
+        }
+
+
+.l0x-toolbar {
+    position: relative;
+    min-height:50px;
+    height: auto;
+    padding: 2px;
+    margin: 2px;
+    width: auto;
+}
+.l0x-toolbar-Seperator {
+    display: inline-flex;
+    color: white;
+    position: relative;
+    height: 40px;
+    margin: 2px;
+    width: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+.l0x-toolbar-btn {
+   
+    cursor: pointer;
+    display: inline-flex;
+    color:white;
+    position: relative;
+    height: 40px;
+    padding: 2px;
+    margin: 2px;
+    width: auto;
+    border-radius: 5px;
+    text-align:center;
+}
+.l0x-toolbar-switch {
+    top:-15px !important;
+    display: inline-flex;
+    color: white;
+    position: relative;
+    height: 40px;
+    padding: 2px;
+    margin: 2px;
+    width: auto;
+    border-radius: 5px;
+    text-align: center;
+}
+    .l0x-toolbar-btn:hover {
+       
+        text-shadow: 0px 0px 5px rgba(0, 175, 240, 1);
+    }
+.l0x-toolbar-textbox {
+    cursor: pointer;
+    display: inline-flex;
+    color: white;
+    position: relative;
+    height: 40px;
+    padding: 2px;
+    margin: 2px;
+    width: auto;
+    border-radius: 5px;
+    text-align: center;
+}
+    .flat-link{
+        text-decoration:none !important;
+    }
+.font-1x{
+        font-size:1em;
+    }
+.font-1-5x {
+    font-size: 1.5em;
+}
+.font-2x {
+    font-size: 2em;
+}
+.font-2-5x {
+    font-size: 2.5em;
+}
+.font-3x {
+    font-size: 3em;
+}
+.glyph-align-vertical{
+    top:-2px;
+}
+.v-align-middle{
+    display:inline-block;
+    vertical-align:middle !important;
+    position:relative;
+    top:-10px;
+    text-align:center;
+   
+}

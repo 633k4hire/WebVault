@@ -27,6 +27,7 @@ namespace WebVault
     {
         public FileFolderInfo(string dir)
         {
+            Url = "javascript:void(0);";
             Title = dir;
             Id = Convert.ToBase64String(Encoding.UTF8.GetBytes(dir));
             ToolTip = dir;
@@ -38,6 +39,7 @@ namespace WebVault
         }
         public FileFolderInfo(System.IO.DirectoryInfo dir)
         {
+            Url = "javascript:void(0);";
             Title = dir.Name;
             Id = Convert.ToBase64String(Encoding.UTF8.GetBytes(dir.FullName));
             ToolTip = dir.Name;
@@ -47,6 +49,7 @@ namespace WebVault
         }
         public FileFolderInfo(System.IO.FileInfo file)
         {
+
             var name = file.Name;
             if (file.Name.Contains("_-_"))
             {
@@ -59,6 +62,7 @@ namespace WebVault
             Size = file.Length.ToString()+" bytes" ;
             var encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(file.FullName));
             OnClick = "fileNodeClick('"+encoded+"');";
+            Url = "un.l0x?f="+encoded;
         }
         
         public IconType IconType = IconType.File;
@@ -77,6 +81,7 @@ namespace WebVault
 
             } }
         public string Title { get; set; }
+        public string Url { get; set; }
         public string Size { get; set; }
         public string OnClick { get; set; }
     }

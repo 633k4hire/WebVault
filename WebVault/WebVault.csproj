@@ -56,6 +56,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
@@ -199,8 +201,20 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\browser.css" />
+    <Content Include="Content\fa-brands.css" />
+    <Content Include="Content\fa-brands.min.css" />
+    <Content Include="Content\fa-regular.css" />
+    <Content Include="Content\fa-regular.min.css" />
+    <Content Include="Content\fa-solid.css" />
+    <Content Include="Content\fa-solid.min.css" />
     <Content Include="Content\FileBrowser.css" />
+    <Content Include="Content\fontawesome-all.css" />
+    <Content Include="Content\fontawesome-all.min.css" />
+    <Content Include="Content\fontawesome.css" />
+    <Content Include="Content\fontawesome.min.css" />
     <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\jquery.contextMenu.css" />
+    <Content Include="Content\jquery.contextMenu.min.css" />
     <Content Include="Content\jquery.dm-uploader.min.css" />
     <Content Include="Content\L0XX0R.css" />
     <Content Include="Content\metro-colors.css" />
@@ -229,6 +243,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="FileHandler.ashx" />
+    <Content Include="font\context-menu-icons.woff2" />
+    <Content Include="font\context-menu-icons.woff" />
+    <Content Include="font\context-menu-icons.ttf" />
+    <Content Include="font\context-menu-icons.eot" />
+    <Content Include="Content\jquery.contextMenu.min.css.map" />
+    <Content Include="Job.aspx" />
+    <Content Include="OTPHandler.ashx" />
+    <Content Include="OtpDownloadHandler.ashx" />
+    <Content Include="key.ashx" />
     <None Include="Properties\PublishProfiles\l0xx0r - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="images\brandlogo.png" />
@@ -320,24 +343,33 @@
     <Content Include="images\treeview\xml.gif" />
     <Content Include="images\treeview\zip.png" />
     <Content Include="L0XX0R.aspx" />
+    <Content Include="OTP.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\browser.js" />
     <Content Include="Scripts\Cog.js" />
+    <Content Include="Scripts\demo-config-otp.js" />
     <Content Include="Scripts\demo-config.js" />
+    <Content Include="Scripts\demo-ui-otp.js" />
     <Content Include="Scripts\demo-ui.js" />
+    <Content Include="Scripts\FileBrowserContextMenuActions.js" />
     <Content Include="Scripts\index.html" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-resizable.js" />
     <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Scripts\jquery.contextMenu.js" />
+    <Content Include="Scripts\jquery.contextMenu.min.js" />
     <Content Include="Scripts\jquery.dm-uploader.js" />
     <Content Include="Scripts\jquery.dm-uploader.min.js" />
+    <Content Include="Scripts\jquery.ui.position.js" />
+    <Content Include="Scripts\jquery.ui.position.min.js" />
     <Content Include="Scripts\jstree.js" />
     <Content Include="Scripts\jstree.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\FileBrowser.js" />
+    <Content Include="Scripts\Resizer-otp.js" />
     <Content Include="Scripts\Resizer.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -375,8 +407,8 @@
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="Site.Master" />
     <Content Include="Templates\icon_view.ascx" />
+    <Content Include="TODO.css" />
     <Content Include="UploadController.aspx" />
-    <Content Include="Upload\Upload.aspx" />
     <Content Include="Upload\upload.js" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config">
@@ -384,6 +416,21 @@
     </Content>
     <Content Include="Bundle.config" />
     <Content Include="Site.Mobile.Master" />
+    <Content Include="webfonts\fa-brands-400.svg" />
+    <Content Include="webfonts\fa-regular-400.svg" />
+    <Content Include="webfonts\fa-solid-900.svg" />
+    <Content Include="webfonts\fa-solid-900.woff2" />
+    <Content Include="webfonts\fa-solid-900.woff" />
+    <Content Include="webfonts\fa-solid-900.ttf" />
+    <Content Include="webfonts\fa-solid-900.eot" />
+    <Content Include="webfonts\fa-regular-400.woff2" />
+    <Content Include="webfonts\fa-regular-400.woff" />
+    <Content Include="webfonts\fa-regular-400.ttf" />
+    <Content Include="webfonts\fa-regular-400.eot" />
+    <Content Include="webfonts\fa-brands-400.woff2" />
+    <Content Include="webfonts\fa-brands-400.woff" />
+    <Content Include="webfonts\fa-brands-400.ttf" />
+    <Content Include="webfonts\fa-brands-400.eot" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account\AddPhoneNumber.aspx.cs">
@@ -491,6 +538,7 @@
     <Compile Include="Account\VerifyPhoneNumber.aspx.designer.cs">
       <DependentUpon>VerifyPhoneNumber.aspx</DependentUpon>
     </Compile>
+    <Compile Include="App_Start\DownloadHandler.cs" />
     <Compile Include="App_Start\ECDHAES256s.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="About.aspx.cs">
@@ -500,10 +548,14 @@
     <Compile Include="About.aspx.designer.cs">
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
+    <Compile Include="App_Start\Extensions.cs" />
     <Compile Include="App_Start\FileCrypt.cs" />
+    <Compile Include="App_Start\Helpers.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\Zip.cs" />
+    <Compile Include="App_Start\ZipHandler.cs" />
     <Compile Include="Browser.aspx.cs">
       <DependentUpon>Browser.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -538,6 +590,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Job.aspx.cs">
+      <DependentUpon>Job.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Job.aspx.designer.cs">
+      <DependentUpon>Job.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="key.ashx.cs">
+      <DependentUpon>key.ashx</DependentUpon>
+    </Compile>
     <Compile Include="L0XX0R.aspx.cs">
       <DependentUpon>L0XX0R.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -547,6 +609,19 @@
     </Compile>
     <Compile Include="Models\BrowserModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="OTP.aspx.cs">
+      <DependentUpon>OTP.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OTP.aspx.designer.cs">
+      <DependentUpon>OTP.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="OtpDownloadHandler.ashx.cs">
+      <DependentUpon>OtpDownloadHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="OTPHandler.ashx.cs">
+      <DependentUpon>OTPHandler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
@@ -577,12 +652,11 @@
     <Compile Include="UploadController.aspx.designer.cs">
       <DependentUpon>UploadController.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Upload\Upload.aspx.cs">
-      <DependentUpon>Upload.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
+    <Compile Include="Upload\Login.ashx.cs">
+      <DependentUpon>Login.ashx</DependentUpon>
     </Compile>
-    <Compile Include="Upload\Upload.aspx.designer.cs">
-      <DependentUpon>Upload.aspx</DependentUpon>
+    <Compile Include="Upload\UL0X.ashx.cs">
+      <DependentUpon>UL0X.ashx</DependentUpon>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
@@ -594,11 +668,17 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Upload\Files\" />
+    <Folder Include="Upload\Files\l0x\" />
+    <Folder Include="Upload\Files\OTP\" />
+    <Folder Include="Upload\Files\temp\" />
+    <Folder Include="Upload\Temp\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Scripts\jquery.contextMenu.min.js.map" />
+    <Content Include="Upload\Login.ashx" />
+    <Content Include="Upload\UL0X.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

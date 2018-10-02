@@ -116,7 +116,7 @@
 
     file.widget.settings.onBeforeUpload.call(file.widget.element, file.id);
     $.ajax({
-        url: 'FileHandler.ashx',
+        url: file.widget.settings.url,
         method: 'post',
         data: fd,
         contentType: false,
@@ -526,6 +526,7 @@
 
   DmUploader.prototype.processQueue = function()
   {
+     
     this.queuePos++;
 
     if (this.queuePos >= this.queue.length) {

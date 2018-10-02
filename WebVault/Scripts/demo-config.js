@@ -2,7 +2,8 @@ $(function(){
 
   $('#drag-and-drop-zone').dmUploader({ //
     url: 'FileHandler.ashx',
-    maxFileSize: 1990000000, // 3 Megs 
+    maxFileSize: 2147483647, // 3 Megs 
+    queue:true,
     onDragEnter: function(){
       // Happens when dragging something over the DnD area
       this.addClass('active');
@@ -43,7 +44,7 @@ $(function(){
       // A file was successfully uploaded
       //ui_add_log('Server Response for file ' + id + ': ' + JSON.stringify(data));
         //check encryption status
-        cogHeight(50);
+        //cogHeight(50);
       ui_add_log('Upload of file ' + id + ' COMPLETED', 'success');
       ui_multi_update_file_status(id, 'success', 'Upload Complete');
       ui_multi_update_file_progress(id, 100, 'success', false);

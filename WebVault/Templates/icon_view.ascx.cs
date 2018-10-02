@@ -13,5 +13,10 @@ namespace WebVault.Templates
         {
 
         }
+
+        protected void RenameInputBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -25,6 +25,11 @@ namespace WebVault.Account
 
         protected void LogIn(object sender, EventArgs e)
         {
+          
+        }
+
+        protected void Unnamed_Click(object sender, EventArgs e)
+        {
             if (IsValid)
             {
                 // Validate the user password
@@ -40,15 +45,16 @@ namespace WebVault.Account
                     case SignInStatus.Success:
                         var tup = ECDHAES256s.AES.PassToKeyIVb(Password.Text);
                         var userid = ECDHAES256s.AES.Sha256(User.Identity.Name);
+                        Application[userid + "pass"] = Password.Text;
                         Application[userid + "key"] = tup.Item1;
                         Application[userid + "iv"] = tup.Item2;
-                        IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);                        
+                        IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);
                         break;
                     case SignInStatus.LockedOut:
                         Response.Redirect("/Account/Lockout");
                         break;
                     case SignInStatus.RequiresVerification:
-                        Response.Redirect(String.Format("/Account/TwoFactorAuthenticationSignIn?ReturnUrl={0}&RememberMe={1}", 
+                        Response.Redirect(String.Format("/Account/TwoFactorAuthenticationSignIn?ReturnUrl={0}&RememberMe={1}",
                                                         Request.QueryString["ReturnUrl"],
                                                         RememberMe.Checked),
                                           true);

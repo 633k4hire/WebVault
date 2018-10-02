@@ -362,7 +362,7 @@ iframe {
 }
 .awp-inner-dialog {
     position: absolute;
-    top: 50%;
+    top: 25px;
     right: 50%;
     text-align:left;
     opacity: 1.00 !important;

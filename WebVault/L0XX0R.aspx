@@ -5,7 +5,7 @@
     <script src="Scripts/Cog.js"></script>
     <script src="Scripts/demo-ui.js"></script>
     <script src="Scripts/demo-config.js"></script>
-
+    <script src="Scripts/webapp.js"></script>
     <div style="margin-left:15px;margin-right:15px;">
 
     
@@ -13,7 +13,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="awp_box rounded shadow">      
-                <div class="awp_box_title bg-grayed">
+                <div class="awp_box_title bg-grayDark">
                     <span class="fg-white shadow-metro-black">Upload</span>
                 </div>
                 <div class="awp_box_content bg-grayDark">
@@ -22,7 +22,7 @@
                             <h3 class="mb-5 mt-5 fg-white shadow-metro-black ">Drag &amp; drop files here</h3>
 
                             <div class="btn btn-primary btn-block mb-5">
-                                <span>Open the file Browser</span>
+                                <span>Browse</span>
                                 <input type="file" title='Click to add Files' />
                             </div>
                         </div><!-- /uploader -->
@@ -93,28 +93,6 @@
     <script type="text/html" id="debug-template">
       <li class="list-group-item text-%%color%%"><strong>%%date%%</strong>: %%message%%</li>
     </script>
-    <!--cog Charm-->
-        <div id="CogBox" class=" transition-bottom">
-       <span class="modal-closer" onclick="ToggleCog()"><span id="cog-chevron"  class=" glyphicon glyphicon-chevron-up fg-white"></span></span>
-            <div id="cog-box-label"><span style="font-size:1em;" class=" glyphicon glyphicon-cog fg-white shadow-metro-black"></span>
-            <asp:Label Text="Settings" ID="CogLabel" ClientIDMode="Static" CssClass="fg-white shadow-metro-black" runat="server" />
-            </div>          
-            <div id="cog-box-content" class="fg-white">
-                <asp:UpdatePanel ID="CogUpdatePanel" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="true">
-                    <ContentTemplate>
-                        <asp:TextBox id="KeyField" runat="server" class="form-control bau-bold" Text="Key" ClientIDMode="Static"></asp:TextBox>
-                        <asp:RegularExpressionValidator ID="KeyCheck" runat="server" CssClass="fg-white shadow-metro-black" 
-                            ErrorMessage="Password length must be between 6 to 12 characters"
-                            ControlToValidate="KeyField"    
-                            ValidationExpression="^[a-zA-Z0-9'@&#.\s]{6,12}$" />
-                        <asp:Button runat="server" ID="SubmitPasswordBtn" ClientIDMode="Static" CssClass="form-control bau-bold" Text="Update Password" OnClick="SubmitPasswordBtn_Click" />
-                    </ContentTemplate> 
-                    <Triggers>
-                        <asp:AsyncPostBackTrigger ControlID="SubmitPasswordBtn" EventName="Click" />
-                    </Triggers>
-                </asp:UpdatePanel>
-                
-            </div>
-        </div>
-<!--End cog Charm-->  
+    
+    <!--Dailogs-->
 </asp:Content>

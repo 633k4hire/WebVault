@@ -47,6 +47,30 @@ namespace WebVault
 
             Page.PreLoad += master_Page_PreLoad;
         }
+        protected void PassBtn_Click(object sender, EventArgs e)
+        {
+            //need to validate passwords
+            if (ChangeKeyPassword.Text == ChangeKeyConfirmPassword.Text)
+            {
+                if (ChangeKeyPassword.Text == "") return;
+                var tup = ECDHAES256s.AES.PassToKeyIVb(ChangeKeyPassword.Text);
+                var userid = ECDHAES256s.AES.Sha256(Context.User.Identity.Name);
+                Application[userid + "pass"] = ChangeKeyPassword.Text;
+                Application[userid + "key"] = tup.Item1;
+                Application[userid + "iv"] = tup.Item2;
+            }else
+            {
+                ShowError("Passwords do not match");
+            }
+        }
+
+        public void ShowError(string message, string title = "")
+        {
+            ErrorLabel.Text = title;
+            ErrorMessage.Text = message;
+            var script = @"$(document).ready(function (){ HideLoader();ToggleError();});";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "testScript", script, true);
+        }
 
         protected void master_Page_PreLoad(object sender, EventArgs e)
         {

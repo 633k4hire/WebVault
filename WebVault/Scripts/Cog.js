@@ -2,11 +2,11 @@
     
 
     // run on page load    
-    cogHeight(50);
+    cogHeight();
 
     // run on window resize event
     $(window).resize(function () {
-        cogHeight(50);
+        cogHeight();
      });
 
 });
@@ -14,10 +14,10 @@ function cogHeight(adjust) {
     var windowHeight = jQuery(window).height();
     if (adjust === null)
     {
-        var newtop = (windowHeight - 50);
+        var newtop = (windowHeight - $("#MainMenu").height()-83);
         $("#CogBox").css('top', newtop + 'px');
     } else {
-        var newtop = (windowHeight - 50 - adjust);
+        var newtop = (windowHeight - $("#MainMenu").height() - adjust);
         $("#CogBox").css('top', newtop + 'px');
     }       
 

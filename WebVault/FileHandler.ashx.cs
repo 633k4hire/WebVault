@@ -6,13 +6,13 @@ using System.IO;
 using ECDHAES256s;
 using System.Text;
 using System.Web.Script.Serialization;
-
+using System.Web.SessionState;
 namespace WebVault.Upload
 {
     /// <summary>
-    /// Summary description for FileHandler
+    /// Encrypted File Uploader
     /// </summary>
-    public class FileHandler : IHttpHandler
+    public class FileHandler : IHttpHandler,IRequiresSessionState
     {
 
         public void ProcessRequest(HttpContext context)
@@ -21,22 +21,21 @@ namespace WebVault.Upload
             {
                 if (context.Request.Files.Count > 0)
                 {
-                    AES aes = new AES();
-                    var k = aes.Key;
+                    
+                   
                     byte[] iv;
                     
                     if (context.Application==null)
                     {
-                        KeyValuePair<string, string>[] tt = new KeyValuePair<string, string>[2] { new KeyValuePair<string, string>("status", "error"), new KeyValuePair<string, string>("message", "no session") };
+                        var tt = "error no application data";
                         var jr = new JavaScriptSerializer().Serialize(tt);
                         context.Response.ContentType = "text/json";
                         context.Response.Write(jr);
                         return;
                     }
                     var userid = ECDHAES256s.AES.Sha256(context.User.Identity.Name);
-                    k =context.Application[userid + "key"] as byte[];
-                    iv = context.Application[userid + "iv"] as byte[];
-
+                    var pass = context.Application[userid + "pass"] as string;
+                   
                     if (! Directory.Exists(context.Server.MapPath("/Upload/Files/" +userid)))
                     {
                         Directory.CreateDirectory(context.Server.MapPath("/Upload/Files/" + userid));
@@ -48,27 +47,30 @@ namespace WebVault.Upload
                     {                        
                         HttpPostedFile file = files[key];                      
                         fileName = file.FileName;
-                        fileName = "/Upload/Files/"+userid+"/" +Guid.NewGuid()+"_-_"+ Path.GetFileNameWithoutExtension(fileName)+ Path.GetExtension(fileName);
+                        fileName = "/Upload/Files/"+userid+"/" +Path.GetFileNameWithoutExtension(fileName)+ Path.GetExtension(fileName);
                         if (fileName.Length>260)
                         {
                             //file name too long truncate
-                            fileName = fileName.Substring(0,255)+ Path.GetExtension(fileName);
+                            fileName = fileName.Substring(0,250)+ Path.GetExtension(fileName);
                         }
-                        using (MemoryStream outstream = aes.Encrypt(k, file.InputStream, iv))
-                        using (FileStream fs = new FileStream(context.Server.MapPath(fileName), FileMode.Create))
+                     
+
+                        
+                        using (FileStream writer = new FileStream(context.Server.MapPath(fileName), FileMode.Create))
                         {
-                            outstream.Position = 0;
-                            outstream.CopyTo(fs);
-                        }   
+                            var os = ECDHAES256s.AES.Encrypt(pass, file.InputStream);
+                            os.Position = 0;
+                            os.CopyTo(writer);
+                        }
                     }
-                    KeyValuePair<string, string>[] ret = new KeyValuePair<string, string>[2] { new KeyValuePair<string, string>("status", "ok"), new KeyValuePair<string, string>("path", fileName) };
+                    var ret = "ok";
                     var jsonizer = new JavaScriptSerializer().Serialize(ret);
                     context.Response.ContentType = "text/json";
                     context.Response.Write(jsonizer);
                 }
                 else
                 {
-                    KeyValuePair<string, string>[] ret = new KeyValuePair<string, string>[2] { new KeyValuePair<string, string>("status", "error"), new KeyValuePair<string, string>("message", "no file") };
+                    var ret = "nofile";
                     var jsonizer = new JavaScriptSerializer().Serialize(ret);
                     context.Response.ContentType = "text/json";
                     context.Response.Write(jsonizer);
@@ -77,7 +79,7 @@ namespace WebVault.Upload
             }
             catch (Exception ex)
             {
-                KeyValuePair<string, string>[] ret = new KeyValuePair<string, string>[2] { new KeyValuePair<string, string>("status", "error"), new KeyValuePair<string, string>("message", ex.Message) };
+                var ret = ex.ToString();
                 var jsonizer = new JavaScriptSerializer().Serialize(ret);
                 context.Response.ContentType = "text/json";
                 context.Response.Write(jsonizer);

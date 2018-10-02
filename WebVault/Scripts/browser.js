@@ -1,10 +1,11 @@
 ﻿var IsResizing = false;
+var bShowList = false;
 $(document).ready(function () {
 
     // run on page load  
     var viewWidth = jQuery(window).width();
-    var left = 328;
-    var right = viewWidth - 328;
+    var left = 5;
+    var right = viewWidth - 5;
     $(".resizable1").width(left);
     $("#DirTree").width(left-19);
     $(".resizable2").width(right);
@@ -12,13 +13,13 @@ $(document).ready(function () {
     function calcFileAppHeight() {
         var footer = 50;
         var toolbar = 50;
-        var newHeight = jQuery(window).height() - jQuery("#MainMenu").height() - jQuery("#footer").height() - jQuery("#toolbar").height();
+        var newHeight = jQuery(window).height() - jQuery("#MainMenu").height() - jQuery("#footer").height() - jQuery("#toolbar").height()-4;
         $("#browserbox").height(newHeight);
 
         if (IsResizing == false) {
             var viewWidth = jQuery(window).width();
-            var left = 328;
-            var right = viewWidth - 328;
+            var left = 5;
+            var right = viewWidth - 5;
             $(".resizable1").width(left);
             $(".resizable2").width(right);
         }
@@ -78,4 +79,31 @@ function dirNodeClick(id) {
     $("#DirID").val(id);
     $("#DirClick").click();
 
+}
+function ToggleList()
+{
+    bShowList = !bShowList;
+    var viewWidth = jQuery(window).width();
+    if ($(".resizable1").width() > 5)
+    {
+        var left = 5;
+        var right = viewWidth - 5;
+        $(".resizable1").width(left);
+        $(".resizable2").width(right);
+        return;
+    }
+    if (bShowList)
+    {       
+        var left = 328;
+        var right = viewWidth - 328;
+        $(".resizable1").width(left);
+        $(".resizable2").width(right);
+    }
+    else
+    {
+        var left = 5;
+        var right = viewWidth - 5;
+        $(".resizable1").width(left);
+        $(".resizable2").width(right);
+    }
 }

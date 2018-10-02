@@ -1,19 +1,18 @@
 ﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="WebVault._Default" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+    <link href="Content/jquery.contextMenu.css" rel="stylesheet" />
 
-    <div class="jumbotron bg-transparent text-center">
-        <span><img src="/images/l0xx0r.png" /></span><span class="glyphicon glyphicon-cloud-upload fg-white shadow-metro-black" style="font-size:8em">
-            </span>
-        <p class="lead fg-white "><strong>Private Encrypted Web Vault</strong></p>
+<script src="Scripts/jquery.contextMenu.min.js"></script>
+    <script src="Scripts/jquery.ui.position.min.js"></script>
+  <div style="overflow:hidden;">
+        <div class="LOGO text-center">
+            <span class="lead fg-white shadow-metro-black text-center" style="padding-top:15px;"><strong>Encrypted Web Vault</strong></span>
+        </div>
+        
         
     </div>
 
-    <div class="row">
-        <div class="col-md-4">
-  
-        </div>
-       
-    </div>
+
 
 </asp:Content>

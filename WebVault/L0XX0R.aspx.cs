@@ -13,27 +13,30 @@ namespace WebVault
         protected void Page_Load(object sender, EventArgs e)
         {
             var userid = ECDHAES256s.AES.Sha256(User.Identity.Name);
-            if (Application[userid + "key"] != null)
+            if (Application[userid + "pass"] != null)
             {
-                KeyField.Text = "********";
+                
+                var script = @"$(document).ready(function (){ HideDiv('SignInModal');});";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "testScript", script, true);
 
             }
             else
             {
-                var salty = ECDHAES256s.AES.GetSalt();
-                var tup = ECDHAES256s.AES.PassToKeyIVb(Convert.ToBase64String(salty));            
-                Application[userid+"key"] = tup.Item1;
-                Application[userid+"iv"] = tup.Item2;
-                KeyField.Text = Convert.ToBase64String(salty);
+                if (!IsPostBack)
+                {
+                    var script = @"$(document).ready(function (){ ShowDiv('SignInModal');});";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "testScript", script, true);
+                }
+
+               // var salty = ECDHAES256s.AES.GetSalt();
+               
             }           
         }
 
         protected void SubmitPasswordBtn_Click(object sender, EventArgs e)
         {
-            var tup = ECDHAES256s.AES.PassToKeyIVb(KeyField.Text);
-            var userid = ECDHAES256s.AES.Sha256(User.Identity.Name);
-            Application[userid + "key"] = tup.Item1;
-            Application[userid + "iv"] = tup.Item2;
+           
         }
+
     }
 }
